@@ -1,0 +1,128 @@
+== Informe de validación del JSON ==
+Archivo: data/earthquakes.json
+[OK]    JSON válido, formato: arreglo de registros
+Registros en el JSON: 9817
+Filas de datos en el CSV: 9817
+  con algún campo obligatorio vacío: 0; ids repetidos: 0
+[OK]    el JSON tiene la misma cantidad de registros que el CSV
+[OK]    todos los ids del JSON existen en el CSV
+[OK]    todos los registros tienen exactamente las 22 claves del esquema
+[OK]    todos los valores tienen el tipo esperado (números, enteros, texto, fechas)
+[OK]    todas las fechas están en formato ISO 8601 UTC (AAAA-MM-DDThh:mm:ss.mmmZ)
+[OK]    no hay espacios sobrantes en los textos
+[OK]    todos los valores numéricos están dentro de rangos razonables
+[OK]    los campos obligatorios (id, time, latitude, longitude, mag) no tienen nulos
+[OK]    no hay ids repetidos
+[OK]    'updated' nunca es anterior a 'time'
+
+Valores faltantes (null) por campo:
+  time                 0  (  0.0 %)
+  latitude             0  (  0.0 %)
+  longitude            0  (  0.0 %)
+  depth                0  (  0.0 %)
+  mag                  0  (  0.0 %)
+  magType              0  (  0.0 %)
+  nst                  0  (  0.0 %)
+  gap                  0  (  0.0 %)
+  dmin                 5  (  0.1 %)
+  rms                  0  (  0.0 %)
+  net                  0  (  0.0 %)
+  id                   0  (  0.0 %)
+  updated              0  (  0.0 %)
+  place                1  (  0.0 %)
+  type                 0  (  0.0 %)
+  horizontalError    263  (  2.7 %)
+  depthError         161  (  1.6 %)
+  magError            11  (  0.1 %)
+  magNst               0  (  0.0 %)
+  status               0  (  0.0 %)
+  locationSource       0  (  0.0 %)
+  magSource            0  (  0.0 %)
+
+Valores de las variables categóricas:
+  status  reviewed: 8064, automatic: 1753
+  type    earthquake: 9491, quarry blast: 105, other event: 94, explosion: 87, ice quake: 38, landslide: 2
+  magType ml: 6568, md: 2099, mb: 1019, mww: 107, mwr: 13, mb_lg: 4, mh: 3, mw: 3 … (9 distintos)
+  net     ak: 2551, nc: 1444, us: 1323, ci: 1236, tx: 758, av: 659, uu: 591, hv: 368 … (15 distintos)
+
+Rango de time: 2026-10-17T03:27:38.840Z  →  2026-11-16T03:18:12.791Z
+Rango de mag: -1.54  →  7.0
+Rango de depth: -3.42  →  651.227
+
+Resultado: 0 errores, 0 avisos
+
+Primeros 3 registros:
+[
+  {
+    "time": "2026-11-16T03:18:12.791Z",
+    "latitude": 64.951,
+    "longitude": -150.881,
+    "depth": 7.1,
+    "mag": 1.8,
+    "magType": "ml",
+    "nst": 14,
+    "gap": 84.0,
+    "dmin": 0.5,
+    "rms": 0.6,
+    "net": "ak",
+    "id": "aka2026wrlpec",
+    "updated": "2026-11-16T03:19:37.014Z",
+    "place": "12 km WSW of Manley Hot Springs, Alaska",
+    "type": "earthquake",
+    "horizontalError": 4.0,
+    "depthError": 3.115,
+    "magError": 0.1,
+    "magNst": 4,
+    "status": "automatic",
+    "locationSource": "ak",
+    "magSource": "ak"
+  },
+  {
+    "time": "2026-11-16T03:13:55.440Z",
+    "latitude": 38.829166412354,
+    "longitude": -122.80283355713,
+    "depth": 2.0,
+    "mag": 0.72,
+    "magType": "md",
+    "nst": 11,
+    "gap": 78.0,
+    "dmin": 0.008074,
+    "rms": 0.01,
+    "net": "nc",
+    "id": "nc75466912",
+    "updated": "2026-11-16T03:15:31.159Z",
+    "place": "7 km W of Cobb, CA",
+    "type": "earthquake",
+    "horizontalError": 0.43,
+    "depthError": 0.620000005,
+    "magError": 0.21,
+    "magNst": 12,
+    "status": "automatic",
+    "locationSource": "nc",
+    "magSource": "nc"
+  },
+  {
+    "time": "2026-11-16T03:13:34.700Z",
+    "latitude": 38.826667785645,
+    "longitude": -122.78717041016,
+    "depth": 0.69999998807907,
+    "mag": 0.65,
+    "magType": "md",
+    "nst": 8,
+    "gap": 86.0,
+    "dmin": 0.01198,
+    "rms": 0.02,
+    "net": "nc",
+    "id": "nc75466907",
+    "updated": "2026-11-16T03:15:11.283Z",
+    "place": "6 km W of Cobb, CA",
+    "type": "earthquake",
+    "horizontalError": 0.32,
+    "depthError": 0.939999998,
+    "magError": 0.16,
+    "magNst": 8,
+    "status": "automatic",
+    "locationSource": "nc",
+    "magSource": "nc"
+  }
+]
