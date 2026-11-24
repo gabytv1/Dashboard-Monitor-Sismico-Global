@@ -1,8 +1,34 @@
 # Monitor Sísmico Global — Dashboard interactivo (Proyecto 03)
 
 Dashboard con React y TypeScript que muestra sismos del Servicio Geológico de EE. UU. (USGS).
-Este repositorio contiene, por ahora, el **Sprint 1: transformación de los datos de CSV a JSON**
-para dejarlos listos para Firebase y para el dashboard.
+Este repositorio contiene:
+
+- **Sprint 1:** transformación de los datos de CSV a JSON (carpetas `data/`, `scripts/` y `docs/`).
+- **Sprint 2:** componentes e interfaces React con Vite, TypeScript y Material UI (carpeta `dashboard/`).
+
+## Sprint 2: cómo ejecutar el dashboard
+
+Requisitos: Node.js 20.19 o superior.
+
+```bash
+cd dashboard
+npm install
+npm run dev        # abre http://localhost:5173
+```
+
+Los datos de ejemplo (`dashboard/src/data/sampleEarthquakes.json`) son 298 sismos tomados de
+`data/earthquakes.json` (uno de cada 33 registros).
+
+```
+dashboard/src/
+├── main.tsx, App.tsx        # punto de entrada y tema
+├── theme/theme.ts           # colores y puntos de quiebre de Material UI
+├── types/earthquake.ts      # tipos compartidos
+├── data/                    # datos de ejemplo
+├── utils/dashboard.ts       # filtros, KPI y región
+├── pages/DashboardPage.tsx  # contenedor con el estado (useState)
+└── components/              # DashboardHeader, FilterBar, KpiGrid, KpiCard, ChartCard, EarthquakeTable
+```
 
 ## Fuente de los datos
 
@@ -12,10 +38,11 @@ para dejarlos listos para Firebase y para el dashboard.
 - Fecha de descarga: **[15/11/2026]**
 - Archivo guardado como `data/earthquakes.csv` (sin modificar).
 
-## Estructura del repositorio
+## Sprint 1: estructura del repositorio
 
 ```
 .
+├── dashboard/                   # Sprint 2: aplicación React
 ├── data/
 │   ├── earthquakes.csv          # CSV original del USGS
 │   └── earthquakes.json         # JSON generado por el script
