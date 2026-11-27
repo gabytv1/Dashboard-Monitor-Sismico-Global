@@ -3,7 +3,7 @@
 import { onValue, ref, type DataSnapshot, type Unsubscribe } from 'firebase/database';
 import { database } from '../firebase/firebase';
 import type { EarthquakeEvent } from '../types/earthquake';
-import { getRegion } from '../utils/dashboard';
+import { getRegion } from '../utils/region';
 
 const EARTHQUAKES_PATH = 'earthquakes';
 
@@ -16,7 +16,10 @@ interface FirebaseEarthquake {
   mag: number;
   magType?: string;
   depth?: number;
+  type?: string;
   status?: string;
+  net?: string;
+  nst?: number;
   latitude: number;
   longitude: number;
 }
@@ -26,13 +29,17 @@ function toEvent(raw: FirebaseEarthquake): EarthquakeEvent {
     id: raw.id,
     time: Date.parse(raw.time),
     place: raw.place ?? 'Ubicación no disponible',
-    region: getRegion(raw.place ?? null),
+    region: getRegion(raw.place),
     mag: raw.mag,
     magType: raw.magType ?? '',
     depth: raw.depth ?? 0,
+    type: raw.type ?? 'earthquake',
     status: raw.status === 'reviewed' ? 'reviewed' : 'automatic',
+    net: raw.net ?? '',
+    nst: raw.nst ?? null,
     latitude: raw.latitude,
     longitude: raw.longitude,
+    url: `https://earthquake.usgs.gov/earthquakes/eventpage/${raw.id}`,
   };
 }
 

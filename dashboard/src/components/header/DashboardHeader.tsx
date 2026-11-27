@@ -1,21 +1,23 @@
 import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import type { DataStatus } from '../../types/earthquake';
+import LiveStatusBadge from './LiveStatusBadge';
 
 interface DashboardHeaderProps {
   title: string;
   subtitle: string;
-  statusText: string;
-  statusColor?: 'default' | 'success' | 'error';
+  status: DataStatus;
+  lastUpdated: number | null;
+  compact?: boolean;
 }
 
-// Encabezado con logo, título, fuente de datos y estado.
-export default function DashboardHeader({ title, subtitle, statusText, statusColor = 'success' }: DashboardHeaderProps) {
+// Encabezado con logo, título, fuente de datos y estado de actualización.
+export default function DashboardHeader({ title, subtitle, status, lastUpdated, compact = false }: DashboardHeaderProps) {
   return (
-    <AppBar position="static" color="inherit" elevation={0}>
+    <AppBar position="sticky" color="inherit" elevation={0} sx={{ bgcolor: 'background.paper' }}>
       <Toolbar sx={{ gap: 2, minHeight: { xs: 64, md: 72 } }}>
         <Box
           sx={{
@@ -32,14 +34,16 @@ export default function DashboardHeader({ title, subtitle, statusText, statusCol
           <MonitorHeartOutlinedIcon />
         </Box>
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-          <Typography variant="h1" sx={{ fontSize: { xs: '1.05rem', md: '1.5rem' }, lineHeight: 1.2 }}>
+          <Typography variant="h1" component="h1" noWrap sx={{ fontSize: compact ? '1.15rem' : '1.5rem' }}>
             {title}
           </Typography>
-          <Typography variant="caption" color="text.secondary" noWrap component="p" sx={{ display: { xs: 'none', md: 'block' } }}>
-            {subtitle}
-          </Typography>
+          {!compact && (
+            <Typography variant="caption" color="text.secondary" noWrap component="p">
+              {subtitle}
+            </Typography>
+          )}
         </Box>
-        <Chip label={statusText} color={statusColor} variant="outlined" size="small" />
+        <LiveStatusBadge status={status} lastUpdated={lastUpdated} compact={compact} />
       </Toolbar>
     </AppBar>
   );

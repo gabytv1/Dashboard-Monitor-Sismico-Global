@@ -5,29 +5,62 @@ Este repositorio contiene:
 
 - **Sprint 1:** transformación de los datos de CSV a JSON (carpetas `data/`, `scripts/` y `docs/`).
 - **Sprint 2:** componentes e interfaces React con Vite, TypeScript y Material UI (carpeta `dashboard/`).
+- **Sprint 3:** conexión de React con Firebase Realtime Database para recuperar los sismos.
 
-## Sprint 2: cómo ejecutar el dashboard
+## Sprint 3: datos en Firebase Realtime Database
+
+1. El archivo `data/earthquakes_firebase.json` contiene los 9817 sismos de `data/earthquakes.json`
+   dentro del nodo `earthquakes`, indexados por su `id`. Se importa en Firebase console
+   (Realtime Database > Datos > ⋮ > Importar JSON).
+2. Reglas de seguridad (solo lectura del nodo `earthquakes`):
+
+```json
+{
+  "rules": {
+    "earthquakes": {
+      ".read": true,
+      ".write": false
+    }
+  }
+}
+```
+
+3. En `dashboard/src/firebase/firebase.ts` se pega la configuración de la app web del proyecto
+   (incluida `databaseURL`).
+4. La app lee el nodo con `onValue` (`services/earthquakeService.ts`) y guarda los registros y los
+   estados de carga y error con `useState` y `useEffect` (`hooks/useEarthquakes.ts`).
+
+## Cómo ejecutar el dashboard
 
 Requisitos: Node.js 20.19 o superior.
 
 ```bash
 cd dashboard
-npm install
+npm install        # instala también firebase y @mui/x-charts
 npm run dev        # abre http://localhost:5173
 ```
 
-Los datos de ejemplo (`dashboard/src/data/sampleEarthquakes.json`) son 298 sismos tomados de
-`data/earthquakes.json` (uno de cada 33 registros).
+Desde el Sprint 3 los datos ya no son de ejemplo: se recuperan desde Firebase Realtime Database.
 
 ```
 dashboard/src/
-├── main.tsx, App.tsx        # punto de entrada y tema
-├── theme/theme.ts           # colores y puntos de quiebre de Material UI
-├── types/earthquake.ts      # tipos compartidos
-├── data/                    # datos de ejemplo
-├── utils/dashboard.ts       # filtros, KPI y región
-├── pages/DashboardPage.tsx  # contenedor con el estado (useState)
-└── components/              # DashboardHeader, FilterBar, KpiGrid, KpiCard, ChartCard, EarthquakeTable
+├── main.tsx, App.tsx          # punto de entrada, tema y estilos base
+├── theme/theme.ts             # tema de Material UI (colores y puntos de quiebre 768 / 1024 px)
+├── types/earthquake.ts        # tipos compartidos (EarthquakeEvent, FilterState, KpiData, ...)
+├── firebase/firebase.ts       # inicialización de Firebase
+├── services/earthquakeService.ts  # lectura del nodo earthquakes con onValue
+├── hooks/useEarthquakes.ts    # useEffect + useState: registros, carga y error
+├── utils/                     # funciones puras: filtros, orden, KPI, series, regiones, formato
+├── pages/DashboardPage.tsx    # contenedor: estado de la interfaz y layout responsivo
+└── components/
+    ├── header/                # DashboardHeader, LiveStatusBadge, DashboardFooter
+    ├── filters/               # FilterBar, MobileFilterBar, FilterButton, FilterSheet
+    ├── kpi/                   # KpiGrid, KpiCard
+    ├── charts/                # ChartCard, TimeSeriesChart, MagnitudeHistogram, RegionBarChart
+    ├── table/                 # EarthquakeTable, EarthquakeRow, EarthquakeCardList, EarthquakeCard
+    ├── detail/                # EarthquakeDetailPanel
+    └── common/                # Button, SegmentedControl, SelectDropdown, MagnitudeBadge,
+                               # StatusTag, DetailRow, StateMessage, Pagination
 ```
 
 ## Fuente de los datos
