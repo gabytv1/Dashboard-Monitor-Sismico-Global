@@ -9,10 +9,11 @@ interface DashboardHeaderProps {
   title: string;
   subtitle: string;
   statusText: string;
+  statusColor?: 'default' | 'success' | 'error';
 }
 
 // Encabezado con logo, título, fuente de datos y estado.
-export default function DashboardHeader({ title, subtitle, statusText }: DashboardHeaderProps) {
+export default function DashboardHeader({ title, subtitle, statusText, statusColor = 'success' }: DashboardHeaderProps) {
   return (
     <AppBar position="static" color="inherit" elevation={0}>
       <Toolbar sx={{ gap: 2, minHeight: { xs: 64, md: 72 } }}>
@@ -38,7 +39,7 @@ export default function DashboardHeader({ title, subtitle, statusText }: Dashboa
             {subtitle}
           </Typography>
         </Box>
-        <Chip label={statusText} color="success" variant="outlined" size="small" />
+        <Chip label={statusText} color={statusColor} variant="outlined" size="small" />
       </Toolbar>
     </AppBar>
   );
